@@ -52,7 +52,7 @@ class List extends React.Component {
   render() {
       // render the list with a map() here
       const addToList = this.state.list.map((item)=>{
-            return <p>{item}</p>
+            return <li class="list-group-item">{item}</li>
         });
 
       return (
@@ -60,14 +60,31 @@ class List extends React.Component {
             <input type="text" onChange={(event)=>{this.changeHandler(event)}} onKeyDown = {(event)=>{this.enterHandler(event)}} value={this.state.word} className = {this.state.className}/>
             <button onClick={()=>{this.addItem()}}>add item</button>
             <p className = "warning-text">{this.state.warning}</p>
-            <div>
-                <p>*******</p>
-                {addToList}
+            <p>*******</p>
+            <div className = "row justify-content-around min-size mx-auto">
+                <div className = "card col-5 p-0">
+                    <div class="card-header font-weight-bold text-center">
+                        Things to do
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {addToList}
+                    </ul>
+                </div>
+                <div className = "card col-5 p-0">
+                    <div class="card-header font-weight-bold text-center">
+                        Things DONEEEE
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        **add checked items**
+                    </ul>
+                </div>
             </div>
         </div>
       );
   }
 }
+
+
 
 
 ReactDOM.render(
