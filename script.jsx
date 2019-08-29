@@ -16,12 +16,9 @@ class List extends React.Component {
   }
 
   changeHandler(event){
-    console.log(event)
-    if (event.keycode === 13){
-        console.log("ENTER")
+    if (event.keyCode === 13){
         this.addItem();
     } else {
-        // console.log("changing")
         var input = event.target.value;
         this.setState({word:input});
     }
@@ -29,14 +26,13 @@ class List extends React.Component {
 
   render() {
       // render the list with a map() here
-      console.log("rendering");
       const addToList = this.state.list.map((item)=>{
             return <p>{item}</p>
         });
 
       return (
         <div className="list">
-            <input type="text" onChange={()=>{this.changeHandler(event)}} value={this.state.word}/>
+            <input type="text" onChange={(event)=>{this.changeHandler(event)}} onKeyDown = {(event)=>{this.changeHandler(event)}} value={this.state.word}/>
             <button onClick={()=>{this.addItem()}}>add item</button>
             <div>
                 <p>*******</p>
