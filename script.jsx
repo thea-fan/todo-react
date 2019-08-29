@@ -6,8 +6,16 @@ class List extends React.Component {
       word : "",
       list : [],
       className : "",
-      warning: ""
+      warning: "",
+      done : []
     }
+  }
+
+  doneItem(index){
+    let updatedState = this.state
+    let checked = updatedState.list.splice(index, 1);
+    updatedState.done.push(checked);
+    this.setState(updatedState);
   }
 
   addItem(){
@@ -51,8 +59,12 @@ class List extends React.Component {
 
   render() {
       // render the list with a map() here
-      const addToList = this.state.list.map((item)=>{
-            return <li class="list-group-item">{item}</li>
+      const addToList = this.state.list.map((item, index)=>{
+            return <li className="list-group-item d-flex justify-content-between">{item} <button type="button" onClick={()=>{this.doneItem(index)}} className="btn btn-outline-warning">Done</button></li>
+        });
+
+      const doneList = this.state.done.map((item)=>{
+            return <li className="list-group-item d-flex justify-content-between"><del>{item}</del></li>
         });
 
       return (
@@ -63,19 +75,19 @@ class List extends React.Component {
             <p>*******</p>
             <div className = "row justify-content-around min-size mx-auto">
                 <div className = "card col-5 p-0">
-                    <div class="card-header font-weight-bold text-center">
+                    <div className="card-header font-weight-bold text-center">
                         Things to do
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <ul className="list-group list-group-flush">
                         {addToList}
                     </ul>
                 </div>
                 <div className = "card col-5 p-0">
-                    <div class="card-header font-weight-bold text-center">
+                    <div className="card-header font-weight-bold text-center">
                         Things DONEEEE
                     </div>
-                    <ul class="list-group list-group-flush">
-                        **add checked items**
+                    <ul className="list-group list-group-flush">
+                        {doneList}
                     </ul>
                 </div>
             </div>
@@ -88,7 +100,7 @@ class List extends React.Component {
 
 
 ReactDOM.render(
-    <div>
+    <div className = "container">
         <h1>TODOOOOOODODODODODO</h1>
         <List/>
     </div>,
