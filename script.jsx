@@ -10,11 +10,10 @@ class List extends React.Component {
       done : []
     }
   }
-
   doneItem(index){
     let updatedState = this.state
     let checked = updatedState.list.splice(index, 1);
-    updatedState.done.push(checked);
+    updatedState.done.push(checked[0]); //console.log(checked) will give you an array of objects
     this.setState(updatedState);
   }
 
@@ -27,7 +26,10 @@ class List extends React.Component {
     var item = this.state.word;
     if (item.length > 0){
         var updateList = this.state.list;
-        updateList.push(item);
+        updateList.push({
+            word: item,
+            date: moment().format('DD MMM YYYY, h:mm a')
+        });
         this.setState({list:updateList});
         this.state.word = "";
         this.setState(pass)
@@ -60,11 +62,11 @@ class List extends React.Component {
   render() {
       // render the list with a map() here
       const addToList = this.state.list.map((item, index)=>{
-            return <li className="list-group-item d-flex justify-content-between">{item} <button type="button" onClick={()=>{this.doneItem(index)}} className="btn btn-outline-warning">Done</button></li>
+            return <li className="list-group-item d-flex justify-content-between"><div>{item.word}<br/><small>Added on {item.date}</small></div><button type="button" onClick={()=>{this.doneItem(index)}} className="btn btn-outline-warning">Done</button></li>
         });
-
       const doneList = this.state.done.map((item)=>{
-            return <li className="list-group-item d-flex justify-content-between"><del>{item}</del></li>
+            console.log(item);
+            return <li className="list-group-item d-flex justify-content-between"><div><del>{item.word}</del><br/><small>Added on {item.date}</small></div></li>
         });
 
       return (
